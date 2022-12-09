@@ -1,0 +1,1 @@
+// ! This file will is linked to highscores.html 
