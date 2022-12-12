@@ -1,4 +1,3 @@
-// TODO Need to export this array of objects and inport it into another sheet 
 
 var questions = [
     {
