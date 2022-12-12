@@ -1,15 +1,36 @@
-let endScreen = getElementById(end-screen);
+// Declare variables
+let endScreen = document.getElementById("end-screen");
+var startScreen = document.querySelector('#start-screen');
+var feedback = document.getElementById("feedback");
+var timer = document.querySelector(".timer");
 
-
+// Keep track of current question 
+var currentQuestionNumber = 0;
 
 // Removes welcome screen
 function clearScreen() 
 {
-    var startScreen = document.querySelector('#start-screen');
     startScreen.textContent = "";
     var currentQuestionNumber = 0;
     return;
 }
+
+// Show when game has finished 
+function endGame () 
+{
+    questionsScreen.classList.add("hide");
+    //Show endscreen
+    endScreen.classList.remove("hide");
+    //Clear content
+    startScreen.textContent = "";
+    // Store score
+    localStorage.setItem("highscore", time);
+    // Remove timer
+    timer.classList.add("hide");
+}
+
+// Highscores
+
 
 //initialise timer
 var time = 75;
@@ -17,11 +38,15 @@ var time = 75;
 // store sounds as variables
 var sfxRight = new Audio("assets/sfx/correct.wav");
 var sfxWrong = new Audio("assets/sfx/incorrect.wav");
+var questionsScreen = document.getElementById("questions");
 
 function renderQuestion(index) {
-
+    if (currentQuestionNumber >= questions.length) {
+        endGame();
+    }
+    else
+    {
     // Remove hide class from questions div
-    var questionsScreen = document.getElementById("questions");
     questionsScreen.classList.remove("hide");
     
     // grab question elements 
@@ -42,10 +67,8 @@ function renderQuestion(index) {
         answers.appendChild(choice);
         answers.classList.add("answers");
     }
+    }
 }
-
-// Keep track of current question 
-var currentQuestionNumber = 0;
 
 // grab timer 
 var timeDisplay = document.getElementById("time");
@@ -81,27 +104,40 @@ function isCorrect (answer) {
         return false;
     }
 }
-
-function handleAnswer (event) {
-    if (isCorrect(event.target.innerText)) {
+function handleAnswer (event) 
+{
+    var result = document.createElement("p");
+    feedback.innerHTML = "";
+    if (isCorrect(event.target.innerText)) 
+    {
+        // increment question number
         currentQuestionNumber++;
-        renderQuestion(currentQuestionNumber);
+        // Show feedback to user
+        feedback.classList.remove("hide");
+        var result = document.createElement("p");
+        feedback.appendChild(result);
+        result.textContent = "Correct";
         // play "right" sound effect
         sfxRight.play();
-        // TODO Show 'Correct'
-    }
-    else {
-        time = time - 10;
-        currentQuestionNumber++;
+        // next question
         renderQuestion(currentQuestionNumber);
+    }
+    else 
+    {
+        // -10 second time penalty
+        time = time - 10;
+        // increment question number
+        currentQuestionNumber++;
+        // Show feedback to user 
+        feedback.classList.remove("hide");
+        var result = document.createElement("p");
+        feedback.appendChild(result);
+        result.textContent = "Wrong";
         // play "wrong" sound effect
         sfxWrong.play();
-        // TODO Show 'wrong'
+        // next question
+        renderQuestion(currentQuestionNumber);
     }
-}
-
-function endGame () {
-
 }
 
 var buttons = choices.addEventListener('click', handleAnswer);
