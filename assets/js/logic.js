@@ -46,14 +46,10 @@ function endGame ()
 }
 
 // ! This is called when submit button is pressed.
-function storeScore (initals) {
+function storeScore (event) {
         // Store score
-        console.log("time is: " + time)
-        const playerDetails = {
-            initials: "initials",
-            highscore: time
-        }
-        localStorage.setItem("initials", "highscore");
+        var initials = getElementById("initials");
+        localStorage.setItem("initials");
 }
 
 //  !When submit button is pressed, need to trigger function (STORESCORE) that calls (at least) 2 functions.  One that is going to.... NEED TO - Empty text field BEFORE this point actually.  Need to grab initials from the field and  create object with initials and score and store in local storage, go to highscores? CHANGE PAGE TO HIGHSCORES
@@ -62,7 +58,7 @@ function storeScore (initals) {
 
 //add event listener to submit score button
 var submitScore = document.getElementById('submit');
-submitScore.addEventListener('click', storeScore("abc"));
+submitScore.addEventListener('click', storeScore);
 
 //initialise timer
 var time = 75;
