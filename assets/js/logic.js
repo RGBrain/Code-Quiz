@@ -3,6 +3,7 @@ let endScreen = document.getElementById("end-screen");
 var startScreen = document.querySelector('#start-screen');
 var feedback = document.getElementById("feedback");
 var timer = document.querySelector(".timer");
+var finalScore = document.getElementById("final-score");
 
 // Keep track of current question 
 var currentQuestionNumber = 0;
@@ -27,9 +28,22 @@ function endGame ()
     localStorage.setItem("highscore", time);
     // Remove timer
     timer.classList.add("hide");
+    // Show score
+    if (time > 0) 
+    {
+        finalScore.textContent = time;
+    }
+    else 
+    {
+        finalScore.textContent = "...honestly, you don't want to know.  Why not have another go?"
+    }
 }
 
-// Highscores
+function storeScore (initals) {
+        // Store score
+        localStorage.setItem("highscore", time);
+}
+
 
 
 //initialise timer
