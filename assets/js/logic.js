@@ -23,15 +23,18 @@ function clearScreen()
 // Show when game has finished 
 function endGame () 
 {
+    // Pause timer 
     clearInterval(interval);
+    // Clear initials input field 
     initialsField.innerHTML = "";
+    // Hide questions 
     questionsScreen.classList.add("hide");
     //Show endscreen
     endScreen.classList.remove("hide");
     //Clear content
     startScreen.textContent = "";
     // Store score
-    localStorage.setItem("highscore", time);  // ! CHANGE THIS, CREATE OBJECT INSTEAD
+    localStorage.setItem("highscore", time);  // ! STORE HIGHSCCORE IN STORAGE
     // Remove timer
     timer.classList.add("hide");
     // Show score
@@ -45,26 +48,21 @@ function endGame ()
     }
 }
 
-// ! This is called when submit button is pressed.
-function storeScore (event) {
-        // Store score
-        var initials = getElementById("initials");
-        localStorage.setItem("initials");
+// Store initials in local storage 
+function storeInitials (event) {
+        var initials = initialsField.value;
+        console.log(initials);
+        localStorage.setItem("initials", initials);
 }
-
-//  !When submit button is pressed, need to trigger function (STORESCORE) that calls (at least) 2 functions.  One that is going to.... NEED TO - Empty text field BEFORE this point actually.  Need to grab initials from the field and  create object with initials and score and store in local storage, go to highscores? CHANGE PAGE TO HIGHSCORES
-
-// ? localStorage stores key:value Pairs - need name and score. 
 
 //add event listener to submit score button
 var submitScore = document.getElementById('submit');
-submitScore.addEventListener('click', storeScore);
+submitScore.addEventListener('click', storeInitials);
 
 //initialise timer
 var time = 75;
 
-
-
+// Render question 
 function renderQuestion(index) {
     if (currentQuestionNumber >= questions.length) {
         endGame();
