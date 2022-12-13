@@ -34,7 +34,7 @@ function endGame ()
     //Clear content
     startScreen.textContent = "";
     // Store score
-    localStorage.setItem("highscore", time);  // ! STORE HIGHSCCORE IN STORAGE
+    localStorage.setItem("highscore", time); 
     // Remove timer
     timer.classList.add("hide");
     // Show score
@@ -51,8 +51,9 @@ function endGame ()
 // Store initials in local storage 
 function storeInitials (event) {
         var initials = initialsField.value;
-        console.log(initials);
         localStorage.setItem("initials", initials);
+        // initials.innerHTML = "";
+
 }
 
 //add event listener to submit score button
